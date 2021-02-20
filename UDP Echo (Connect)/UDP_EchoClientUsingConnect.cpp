@@ -1,8 +1,9 @@
 //UDP Client which uses connect()
 
-#include"Common.h"
+#include "Common.h"
 
-int main() {
+int main()
+{
 
 	int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	CheckError(sockfd, "socket()");
@@ -17,8 +18,9 @@ int main() {
 	const int BUFFER_SIZE = 100;
 	char Buff[BUFFER_SIZE];
 
-	connect(sockfd, (sockaddr*) &server_addr, server_addr_len);
-	while (true) {
+	connect(sockfd, (sockaddr *)&server_addr, server_addr_len);
+	while (true)
+	{
 		int count = read(fileno(stdin), Buff, BUFFER_SIZE);
 
 		count = write(sockfd, Buff, count);
@@ -28,7 +30,6 @@ int main() {
 		CheckError(count, "write()");
 
 		write(fileno(stdout), Buff, count);
-
 	}
 	return 0;
 }

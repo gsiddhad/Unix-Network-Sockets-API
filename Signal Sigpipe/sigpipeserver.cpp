@@ -1,8 +1,9 @@
 // Singnal Handling:  A server which close connection  immediately affter accepting it
 
-#include"Common.h"
+#include "Common.h"
 
-int main() {
+int main()
+{
 
 	int server_desc = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -11,11 +12,12 @@ int main() {
 	server_addr.sin_addr.s_addr = INADDR_ANY;
 	server_addr.sin_port = htons(9000);
 
-	bind(server_desc, (sockaddr*) &server_addr, sizeof(server_addr));
+	bind(server_desc, (sockaddr *)&server_addr, sizeof(server_addr));
 
 	listen(server_desc, 4);
 
-	while (true) {
+	while (true)
+	{
 		int client_desc = accept(server_desc, NULL, NULL);
 		close(client_desc);
 	}
@@ -23,4 +25,3 @@ int main() {
 	close(server_desc);
 	return 0;
 }
-

@@ -1,13 +1,14 @@
-#include<netdb.h>
-#include<iostream>
-#include<arpa/inet.h>
+#include <netdb.h>
+#include <iostream>
+#include <arpa/inet.h>
 
 using namespace std;
 
 void GetHostByName();
 void GetHostByAddr();
 
-int main() {
+int main()
+{
 	cout << "gethostbyname() :" << endl;
 	GetHostByName();
 
@@ -17,12 +18,14 @@ int main() {
 	return 0;
 }
 
-void GetHostByName() {
+void GetHostByName()
+{
 	struct hostent *host;
 
 	host = gethostbyname("google.co.in");
 
-	if (host != NULL) {
+	if (host != NULL)
+	{
 		cout << "Host name  :" << host->h_name << endl;
 		cout << "Aliases  :";
 
@@ -39,24 +42,26 @@ void GetHostByName() {
 		for (int i = 0; host->h_addr_list[i] != NULL; i++)
 			if (host->h_addrtype == AF_INET)
 				cout << "\t"
-						<< inet_ntop(AF_INET, host->h_addr_list[i], str,
-								INET_ADDRSTRLEN);
+					 << inet_ntop(AF_INET, host->h_addr_list[i], str,
+								  INET_ADDRSTRLEN);
 
 		cout << endl;
-	} else
+	}
+	else
 		cout << "Error!!" << endl;
-
 }
 
-void GetHostByAddr() {
+void GetHostByAddr()
+{
 	struct hostent *host;
 
 	in_addr addr;
 	inet_aton("216.58.192.227", &addr);
 
-	host = gethostbyaddr((void*) &addr, 4, AF_INET);
+	host = gethostbyaddr((void *)&addr, 4, AF_INET);
 
-	if (host != NULL) {
+	if (host != NULL)
+	{
 		cout << "Host name  :" << host->h_name << endl;
 		cout << "Aliases  :";
 
@@ -73,11 +78,11 @@ void GetHostByAddr() {
 		for (int i = 0; host->h_addr_list[i] != NULL; i++)
 			if (host->h_addrtype == AF_INET)
 				cout << "\t"
-						<< inet_ntop(AF_INET, host->h_addr_list[i], str,
-								INET_ADDRSTRLEN);
+					 << inet_ntop(AF_INET, host->h_addr_list[i], str,
+								  INET_ADDRSTRLEN);
 
 		cout << endl;
-	} else
+	}
+	else
 		cout << "Error!!" << endl;
-
 }

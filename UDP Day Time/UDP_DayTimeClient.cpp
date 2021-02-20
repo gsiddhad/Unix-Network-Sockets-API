@@ -1,8 +1,9 @@
 //UDP DayTime Client
 
-#include"Common.h"
+#include "Common.h"
 
-int main() {
+int main()
+{
 	int sock = socket(AF_INET, SOCK_DGRAM, 0);
 	CheckError(sock, "socket()");
 
@@ -15,17 +16,18 @@ int main() {
 
 	char Buff[200];
 
-	sendto(sock, Buff, 1, 0, (sockaddr*) &server_addr, addr_len);
-	int Count = recvfrom(sock, Buff, 200, 0, (sockaddr*) &server_addr,
-			&addr_len);
-	if (Count > 0) {
+	sendto(sock, Buff, 1, 0, (sockaddr *)&server_addr, addr_len);
+	int Count = recvfrom(sock, Buff, 200, 0, (sockaddr *)&server_addr,
+						 &addr_len);
+	if (Count > 0)
+	{
 		cout << "\n Current Date & Time (Local) is : ";
-		fflush (stdout);
+		fflush(stdout);
 		write(fileno(stdout), Buff, Count);
 		cout << "\n\n";
-	} else
+	}
+	else
 		cout << "Empty Responce from Server";
 
 	return 0;
 }
-

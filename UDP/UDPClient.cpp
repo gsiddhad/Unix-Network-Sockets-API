@@ -2,7 +2,8 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
 	int serv_desc = socket(AF_INET, SOCK_DGRAM, 0);
 	struct sockaddr_in serv_addr;
 
@@ -14,7 +15,7 @@ int main() {
 
 	cout << "client started" << endl;
 
-	dgClient(serv_desc, (sockaddr*) &serv_addr, sizeof(serv_addr));
+	dgClient(serv_desc, (sockaddr *)&serv_addr, sizeof(serv_addr));
 
 	cout << "exited" << endl;
 	return 0;

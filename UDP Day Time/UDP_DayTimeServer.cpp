@@ -1,8 +1,9 @@
 //UDP DayTime Server
 
-#include"Common.h"
+#include "Common.h"
 
-int main() {
+int main()
+{
 	int sock = socket(AF_INET, SOCK_DGRAM, 0);
 	CheckError(sock, "socket()");
 
@@ -13,14 +14,14 @@ int main() {
 	server_addr.sin_addr.s_addr = INADDR_ANY;
 	server_addr.sin_port = htons(9000);
 
-	int r = bind(sock, (sockaddr*) &server_addr, sizeof(server_addr));
+	int r = bind(sock, (sockaddr *)&server_addr, sizeof(server_addr));
 	CheckError(r, "bind()");
 
-	while (true) {
+	while (true)
+	{
 		char Buff[1];
-		recvfrom(sock, Buff, 1, 0, (sockaddr*) &client_addr, &client_addr_len);
+		recvfrom(sock, Buff, 1, 0, (sockaddr *)&client_addr, &client_addr_len);
 		UDP_DayTimeServer(sock, client_addr, client_addr_len);
 	}
 	return 0;
 }
-

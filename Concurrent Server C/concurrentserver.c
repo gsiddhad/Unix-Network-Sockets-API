@@ -1,17 +1,18 @@
-#include<stdio.h>
-#include<sys/types.h>
-#include<sys/socket.h>
-#include<string.h>
-#include<stdlib.h>
-#include<netinet/in.h>
-#include<arpa/inet.h>
-#include<unistd.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <string.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
 #define PORT 8000
 #define MAXSZ 1000
 
-int main() {
-	int sockfd; //to create socket
+int main()
+{
+	int sockfd;	   //to create socket
 	int newsockfd; //to accept connection
 
 	struct sockaddr_in serverAddress; //server receive on this address
@@ -31,17 +32,18 @@ int main() {
 	serverAddress.sin_port = htons(PORT);
 
 	//bind the socket with the server address and port
-	bind(sockfd, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
+	bind(sockfd, (struct sockaddr *)&serverAddress, sizeof(serverAddress));
 
 	//listen for connection from client
 	listen(sockfd, 5);
 
-	while (1) {
+	while (1)
+	{
 		//parent process waiting to accept a new connection
 		printf("\n*****server waiting for new client connection:*****\n");
 		clientAddressLength = sizeof(clientAddress);
-		newsockfd = accept(sockfd, (struct sockaddr*) &clientAddress,
-				&clientAddressLength);
+		newsockfd = accept(sockfd, (struct sockaddr *)&clientAddress,
+						   &clientAddressLength);
 		c = c + 1;
 		printf("connected to client: %s\n", inet_ntoa(clientAddress.sin_addr));
 		printf("You are client no : %d \n", c);
@@ -49,16 +51,18 @@ int main() {
 		//child process is created for serving each new clients
 		pid = fork();
 		if (pid == 0) //child process rec and send
-				{
+		{
 			//rceive from client
-			while (n = recv(newsockfd, msg, MAXSZ, 0) > 0) {
+			while (n = recv(newsockfd, msg, MAXSZ, 0) > 0)
+			{
 				puts("Recieved data from client");
 				printf("%s", msg);
 				msg[n] = 0;
 				//write(newsockfd,msg,n);
 				send(newsockfd, msg, n, 0);
 
-				if (n == 0) {
+				if (n == 0)
+				{
 					close(newsockfd);
 					printf("Goodbye client no : %d \n", c);
 					break;
@@ -67,7 +71,9 @@ int main() {
 				printf("Received and sent:%s\n", msg);
 			} //close interior while
 			exit(0);
-		} else {
+		}
+		else
+		{
 			close(newsockfd); //sock is closed BY PARENT
 		}
 	} //close exterior while

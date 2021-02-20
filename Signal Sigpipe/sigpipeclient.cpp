@@ -1,14 +1,16 @@
-//A Simple Client 
+//A Simple Client
 
-#include"Common.h"
+#include "Common.h"
 
-//SIGPIPE Handler 
-void SIGPIPE_Handler(int sig) {
+//SIGPIPE Handler
+void SIGPIPE_Handler(int sig)
+{
 	cout << "\n\n SIGPIPE Intercepted ";
-	fflush (stdout);
+	fflush(stdout);
 }
 
-int main() {
+int main()
+{
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
 
 	sockaddr_in server_addr;
@@ -16,7 +18,7 @@ int main() {
 	server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 	server_addr.sin_port = htons(9000);
 
-	connect(sock, (sockaddr*) &server_addr, sizeof(server_addr));
+	connect(sock, (sockaddr *)&server_addr, sizeof(server_addr));
 
 	signal(SIGPIPE, SIGPIPE_Handler);
 
